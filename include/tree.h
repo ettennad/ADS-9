@@ -21,7 +21,6 @@ class PMTree {
         for (size_t i = 0; i < available.size(); i++) {
             auto child = std::make_shared<Node>(available[i]);
             parent->next.push_back(child);
-            
             std::vector<char> new_available;
             for (size_t j = 0; j < available.size(); j++) {
                 if (j != i) new_available.push_back(available[j]);
@@ -44,7 +43,6 @@ class PMTree {
     }
     static int calcSubtreeSize(const std::shared_ptr<Node>& node) {
         if (node->next.empty()) return 1;
-        
         int size = 0;
         for (const auto& n : node->next) {
             size += calcSubtreeSize(n);
@@ -77,8 +75,8 @@ class PMTree {
         }
         return false;
     }
- public:
-    explicit PMTree(const std::vector<char>& symbols) 
+public:
+    explicit PMTree(const std::vector<char>& symbols)
         : head(std::make_shared<Node>('\0')), total_perms(0) {
         if (symbols.empty()) return;
         total_perms = 1;
