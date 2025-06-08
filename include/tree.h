@@ -12,15 +12,16 @@ struct Node {
     explicit Node(char v) : val(v) {}
 };
 class PMTree {
-private:
+ private:
     std::shared_ptr<Node> head;
     int total_perms;
-    void makeBranches(std::shared_ptr<Node> parent, 
+    void makeBranches(std::shared_ptr<Node> parent,
                      std::vector<char> available) {
         if (available.empty()) return;
         for (size_t i = 0; i < available.size(); i++) {
             auto child = std::make_shared<Node>(available[i]);
             parent->next.push_back(child);
+            
             std::vector<char> new_available;
             for (size_t j = 0; j < available.size(); j++) {
                 if (j != i) new_available.push_back(available[j]);
@@ -43,6 +44,7 @@ private:
     }
     static int calcSubtreeSize(const std::shared_ptr<Node>& node) {
         if (node->next.empty()) return 1;
+        
         int size = 0;
         for (const auto& n : node->next) {
             size += calcSubtreeSize(n);
@@ -58,7 +60,6 @@ private:
             for (const auto& n : node->next) {
                 path.push_back(n->val);
                 int subtree_size = calcSubtreeSize(n);
-                
                 if (counter + subtree_size >= target) {
                     if (findPerm(n, path, result, counter, target)) {
                         return true;
@@ -76,7 +77,7 @@ private:
         }
         return false;
     }
-public:
+ public:
     explicit PMTree(const std::vector<char>& symbols) 
         : head(std::make_shared<Node>('\0')), total_perms(0) {
         if (symbols.empty()) return;
