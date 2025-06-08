@@ -75,7 +75,7 @@ class PMTree {
         }
         return false;
     }
-public:
+ public:
     explicit PMTree(const std::vector<char>& symbols)
         : head(std::make_shared<Node>('\0')), total_perms(0) {
         if (symbols.empty()) return;
