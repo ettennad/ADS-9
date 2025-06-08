@@ -5,7 +5,10 @@
 #include <random>
 #include "tree.h"
 
-using namespace std::chrono;
+using std::vector;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::microseconds;
 uint16_t measureGetAll(PMTree& tree) {
     auto start = high_resolution_clock::now();
     getAllPerms(tree);
@@ -28,7 +31,7 @@ int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
     for (int n = 1; n <= 10; n++) {
-        std::vector<char> symbols(n);
+        vector<char> symbols(n);
         for (int i = 0; i < n; i++) {
             symbols[i] = '1' + i;
         }
@@ -39,10 +42,10 @@ int main() {
         uint16_t t_all = measureGetAll(tree);
         uint16_t t_get1 = measureGet1(tree, rand_num);
         uint16_t t_get2 = measureGet2(tree, rand_num);
-        std::cout << n << "\t" 
-                  << t_all << "\t"
-                  << t_get1 << "\t" 
-                  << t_get2 << "\n";
+        std::cout << n << "\t"
+                 << t_all << "\t"
+                 << t_get1 << "\t"
+                 << t_get2 << "\n";
     }
     return 0;
 }
